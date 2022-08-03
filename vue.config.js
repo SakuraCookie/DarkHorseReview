@@ -21,5 +21,19 @@ module.exports = {
       .end()
       .use('file-loader')
       .loader('file-loader')
+  },
+  devServer: {
+    // before: require('./mock/mock-server.js')
+    // !请求路径: (域名+端口号)+baseURL+请求路径
+    // !eg: http://localhost:9528/+/api+/sys/login = http://localhost:9528/api/sys/login
+    // !目标路径: target+baseURL+请求路径
+    // !eg: http://ihrm-java.itheima.net+/api+/sys/login = http://ihrm-java.itheima.net/api/sys/login
+    proxy: {
+      '/api': {
+        target: 'http://hmmm-api.itheima.net',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      }
+    }
   }
 }
