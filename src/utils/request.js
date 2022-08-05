@@ -5,10 +5,9 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const instance = axios.create({
-  baseURL: 'http://localhost:7001/', // api的base_url
+  baseURL: process.env.VUE_APP_BASE_URL, // api的base_url
   timeout: 5000 // request timeout
 })
-
 // request interceptor
 instance.interceptors.request.use(
   config => {
