@@ -13,7 +13,7 @@ import { createAPI } from '@/utils/request'
 export const list = data => createAPI('/subjects', 'get', data)
 
 // 学科简单列表
-export const simple = data => createAPI('/subjects/simple', 'get', data)
+export const simples = data => createAPI('/subjects/simple', 'get', data)
 
 // 学科详情
 export const detail = data => createAPI(`/subjects/${data.id}`, 'get', data)
