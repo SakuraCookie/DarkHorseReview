@@ -3,7 +3,7 @@
      <el-dialog :visible="showTagsAdd" v-bind="$attrs" v-on="$listeners" @open="onOpen" @close="onClose" :title="currentListId.id?'修改标签':'新增标签'" width="20%">
       <el-form ref="formRef" :model="form" :rules="rules" size="medium" label-width="100px" label-position="left">
         <el-form-item label="所属学科" prop="subjectID">
-          <el-select v-model="form.subjectID" placeholder="请选择所属学科" clearable :style="{width: '100%'}">
+          <el-select filterable  v-model="form.subjectID" placeholder="请选择所属学科" clearable :style="{width: '100%'}">
             <el-option v-for="(item, index) in  list" :key="index" :label="item.label"
               :value="item.value" :disabled="item.disabled"></el-option>
           </el-select>
@@ -117,6 +117,7 @@ export default {
           await update(data)
         } else {
           await add(this.form)
+          this.$parent.page.page = 1
         }
         // 通知父组件刷新列表
         this.$parent.detail()

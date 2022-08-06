@@ -206,7 +206,7 @@ export default {
   watch: {
     // 无内容时清空quill editor样式
     'updateForm.articleBody' (val) {
-      if (/^<p\s*\S*>\s*\S*<\/p>$/.test(val)) { this.updateForm.articleBody = undefined }
+      if (/^<p class="ql-align-center"><br><\/p>$/.test(val)) { this.updateForm.articleBody = undefined }
     }
   },
   components: { quillEditor },
