@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 function pluralize (time, label) {
   if (time === 1) {
     return time + label
@@ -158,4 +160,9 @@ export function toThousandslsFilter (num) {
   return (+num || 0)
     .toString()
     .replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+}
+
+// 日期格式化
+export const formatDate = (s, f = 'YYYY-MM-DD') => {
+  return moment(s).format(f)
 }

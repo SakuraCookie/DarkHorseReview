@@ -277,12 +277,14 @@ export default {
     handleFilter () {
       this.requestParameters.page = 1
       this.getList(this.requestParameters)
+      console.log(this.requestParameters)
     },
     // 每页显示信息条数
     handleSizeChange (val) {
       this.requestParameters.pagesize = val
       if (this.requestParameters.page === 1) {
         this.getList(this.requestParameters)
+        // console.log(this.requestParameters)
       }
     },
     // 进入某一页
