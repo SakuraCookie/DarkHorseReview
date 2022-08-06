@@ -233,13 +233,14 @@
           <template slot-scope="scope">
             <div>
               <el-button
-                @click="preview(scope.row)"
+                @click="isDialogVisibleShow(scope.row.id)"
                 plain
                 size="small"
                 type="primary"
                 icon="el-icon-view"
                 circle
               ></el-button>
+              <!-- isDialogVisibleShow -->
               <el-button
                 @click="toEdit(scope.row)"
                 plain
@@ -278,12 +279,22 @@
         :total="counts"
       >
       </el-pagination>
-
-      <QuestionPreview
+ <!-- <QuestionPreview
         :dialogVisible="dialogVisible"
         @close="dialogVisible = false"
         :questionItem="questionItem"
-      ></QuestionPreview>
+      ></QuestionPreview> - -->
+      <!-- 8月6日----修改后的 -->
+          <el-dialog
+  title="题目预览"
+  :visible.sync="dialogVisible"
+  width="45%"
+  :before-close="handleClose">
+  <QuestionsTopicPreview  v-if="dialogVisible" :ListId="currentId"></QuestionsTopicPreview>
+  <span slot="footer" class="dialog-footer" >
+    <el-button type="primary" @click="dialogVisible = false">关闭</el-button>
+  </span>
+</el-dialog>
     </div>
   </div>
 </template>
@@ -296,14 +307,17 @@ import { questionType, difficulty, direction } from '@/api/hmmm/constants'
 import { simple as simpleE } from '@/api/base/users'
 import { provinces, citys } from '@/api/hmmm/citys'
 import { list as getQuestions, choiceAdd, remove, detail } from '@/api/hmmm/questions'
-import QuestionPreview from './preview/question-preview.vue'
+// import QuestionPreview from './preview/question-preview.vue'
+import QuestionsTopicPreview from '../components/questions-topicPreview.vue'
 
 export default {
   components: {
-    QuestionPreview
+    QuestionsTopicPreview
+    // QuestionPreview
   },
   data () {
     return {
+      currentId: '', // 保存当前id
       subjects: [],
       directorys: [],
       tags: [],
@@ -352,6 +366,17 @@ export default {
     this.getDate()
   },
   methods: {
+    isDialogVisibleShow (id) {
+      this.dialogVisible = true
+
+      // 保存当前点击的那条数据的id
+      this.currentId = id
+      console.log(this.currentId, '111')
+    },
+    // 弹层方法
+    handleClose (done) {
+      this.dialogVisible = false
+    },
     // 获取学科
     async getSubjects () {
       try {

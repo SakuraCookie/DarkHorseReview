@@ -31,7 +31,7 @@
 </el-row>
     <hr>
    <div >【题干】 ：</div>
-   <div class="topic" ><a href="javascript:;"  v-html="list.question"></a> </div>
+   <div class="topic" style="color: blue;" ><a href="javascript:;"  v-html="list.question"></a> </div>
           <div v-show="list.questionType !== '3'">
       <div>
             <span v-if="list.questionType == '1'">
@@ -46,7 +46,7 @@
           选项：（以下选中的选项为正确答案
           </div>
               <el-radio-group v-model="radio">
-              <el-radio v-for="(item,index) in list.options" :key="index" :label="item.isRight">{{item.title}} </el-radio>
+              <el-radio   @change="radio = 1"  v-for="(item,index) in list.options" :key="index" :label="item.isRight">{{item.title}} </el-radio>
             </el-radio-group>
           </div>
      <hr>

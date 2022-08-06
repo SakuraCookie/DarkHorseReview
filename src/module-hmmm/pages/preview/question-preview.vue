@@ -66,7 +66,6 @@
       <el-radio-group
         v-model="radio"
         v-if="questionItem.questionType === '1'"
-        @change="change"
       >
         <el-row
           v-for="(item, index) in questionItem.options"

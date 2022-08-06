@@ -74,7 +74,7 @@
          </el-table-column>
          <el-table-column align="center" label="操作"  fixed="right" width="280">
             <template slot-scope="scope">
-                <el-button type="text" size="small" @click="previewId(scope.row)">预览</el-button>
+                <el-button type="text" size="small" @click="previewId(scope.row.id)">预览</el-button>
                 <el-button type="text" size="small" :disabled="scope.row.chkState != '0' ?true:false" @click="QuestionsCheck(scope.row)">审核</el-button>
                 <el-button type="text" size="small" :disabled="scope.row.publishState == '1'? true:false " @click="onClick(scope.row.id)">修改</el-button>
                 <el-button type="text" size="small" @click="grounding(scope.row)">{{scope.row.publishState == '0'? '上架':'下架'}}</el-button>
@@ -110,7 +110,20 @@
         </el-dialog>
 
         <!-- 预览弹框 -->
-        <el-dialog :visible="previewDialog" title="" @close="onCloseTwo">
+        <!-- 修改---8月6日 -->
+                <el-dialog
+  title="题目预览"
+  :visible.sync="dialogVisible"
+  width="45%"
+
+  :before-close="handleClose">
+  <QuestionsTopicPreview  v-if="dialogVisible" :ListId="currentId"></QuestionsTopicPreview>
+  <span slot="footer" class="dialog-footer" >
+    <!-- <el-button @click="dialogVisible = false">关闭</el-button> -->
+    <el-button type="primary" @click="dialogVisible = false">关闭</el-button>
+  </span>
+</el-dialog>
+        <!-- <el-dialog :visible="previewDialog" title="" @close="onCloseTwo">
  <el-row :gutter="20">
   <el-col :span="6"><div class="grid-content bg-purple">【题型】 ：
       <span v-if="List.questionType == '1'">
@@ -176,7 +189,7 @@
  <div slot="footer" type="flex" justify="end">
             <el-button @click="onCloseTwo" >关闭</el-button>
           </div>
- </el-dialog>
+ </el-dialog> -->
 
   </div>
 </template>
@@ -187,6 +200,7 @@ import { choiceCheck, choicePublish, remove } from '../../api/hmmm/questions'
 // import QuestionsCheck from './questions-check.vue'
 // import QuestionsTopicPreview from './questions-topicPreview.vue'
 // import { choice } from '@/api/hmmm/questions.js'
+import QuestionsTopicPreview from './questions-topicPreview.vue'
 export default {
   name: 'questionChoiceList',
   inheritAttrs: false,
@@ -204,11 +218,13 @@ export default {
   },
   data () {
     return {
+      currentIdL: '',
       ListId: undefined,
       previewDialog: false,
       radio: 1,
       List: {},
       newObj: {},
+      dialogVisible: false, // 控制 预览弹窗 8月6日修改
       isVideoShow: false,
       QuestionDialog: false,
       tableKey: 0,
@@ -239,7 +255,7 @@ export default {
       curItem: undefined
     }
   },
-  components: { },
+  components: { QuestionsTopicPreview },
   created () {
   },
   watch: {
@@ -247,10 +263,16 @@ export default {
   // 挂载结束
   mounted: function () {},
   methods: {
+
+    // 弹层方法
+    handleClose (done) {
+      this.dialogVisible = false
+    },
     // 预览
-    previewId (row) {
-      this.previewDialog = true
-      this.List = row
+    previewId (id) {
+      this.dialogVisible = true
+      // 保存当前点击的那条数据的id
+      this.currentId = id
     },
     onCloseTwo () {
       this.previewDialog = false

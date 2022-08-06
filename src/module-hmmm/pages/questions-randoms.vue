@@ -109,7 +109,6 @@
   width="45%"
 
   :before-close="handleClose">
-  <!-- v-if="dialogVisible" -->
   <QuestionsTopicPreview  v-if="dialogVisible" :ListId="currentId"></QuestionsTopicPreview>
   <span slot="footer" class="dialog-footer" >
     <!-- <el-button @click="dialogVisible = false">关闭</el-button> -->
@@ -167,7 +166,14 @@ export default {
       this.formInline.keyword = ''
     },
     // 搜索关键字方法
-    onSubmit () {
+    onSubmit (obj) {
+      if (obj === '') {
+        this.$message({
+          message: '搜索关键字不能为空！',
+          type: 'warning'
+        })
+        return
+      }
       this.randomsList()
     },
     // 删除方法

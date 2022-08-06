@@ -257,11 +257,11 @@ export default {
         }],
         direction: [{
           message: '请选择方向',
-          trigger: 'change'
+          trigger: 'blur'
         }],
         creatorID: [{
           message: '请选择',
-          trigger: 'change'
+          trigger: 'blur'
         }],
         remarks: [{
           message: '',
