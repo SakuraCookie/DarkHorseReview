@@ -21,5 +21,14 @@ module.exports = {
       .end()
       .use('file-loader')
       .loader('file-loader')
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://hmmm-api.itheima.net',
+        changeOrigin: true, // 是否允许跨域
+        pathRewrite: { '^/api': '' }
+      }
+    }
   }
 }
