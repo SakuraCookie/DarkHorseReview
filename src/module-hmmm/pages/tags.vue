@@ -84,6 +84,7 @@
           @current-change="handleCurrentChange"
           :page-sizes="[5, 10, 20, 30, 40, 50]"
           :page-size="page.pagesize"
+          :current-page="page.page"
           layout="total, sizes, prev, pager, next, jumper"
           :total="page.total">
         </el-pagination>

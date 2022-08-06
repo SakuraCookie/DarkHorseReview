@@ -117,6 +117,7 @@ export default {
           await update(data)
         } else {
           await add(this.form)
+          this.$parent.page.page = 1
         }
         // 通知父组件刷新列表
         this.$parent.detail()
