@@ -26,7 +26,7 @@
       <el-alert
         style="margin:10px 0px"
         type="info"
-        close-text=''
+        :closable="false"
         show-icon>
         <span slot="title">数据一共{{page.total}}条</span>
       </el-alert>
@@ -79,9 +79,10 @@
       <!-- 分页器 -->
       <el-row type="flex" justify="end">
         <el-pagination
+          background
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :page-sizes="[1, 10, 20, 30, 40, 50]"
+          :page-sizes="[5, 10, 20, 30, 40, 50]"
           :page-size="page.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="page.total">
