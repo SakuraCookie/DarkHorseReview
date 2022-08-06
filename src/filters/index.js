@@ -163,6 +163,6 @@ export function toThousandslsFilter (num) {
 }
 
 // 日期格式化
-export const formatDate = (s, f = 'YYYY-MM-DD') => {
+export const formatDate = (s, f = 'YYYY-MM-DD' + '  ' + 'HH:mm:ss') => {
   return moment(s).format(f)
 }
